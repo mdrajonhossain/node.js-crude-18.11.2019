@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memory Used</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-4">
+         <canvas id="myChart" width="20" height="20"></canvas>
+      </div>
+
+
+      <div class="col-md-4">
+        
+		<canvas id="myChart1" width="20" height="20"></canvas>        
+        
+      </div>
+
+      <div class="col-md-4">
+         <canvas id="myChart2" width="20" height="20"></canvas>
+      </div>
+  </div>
+</div>
+
+
+
+
+<a class=" btn-warning btn btn-primary" href="/folder_size" role="button">Folder Size</a>
+
+<a class=" btn-info btn btn-info" href="/next" role="button">Table</a>
+
+<a class=" btn-info btn btn-info" href="/form" role="button">Form</a>
+
+  </body>
+</html>
+
+<script>
+
+ 
+var a = <%= ab %>;
+
+var rss = (a.rss / (1024 * 1024)).toFixed(2);
+var heapUsed = (a.heapUsed / (1024 * 1024)).toFixed(2);
+var heapTotal = (a.heapTotal / (1024 * 1024)).toFixed(2);
+var external = (a.external / (1024 * 1024)).toFixed(2);
+
+
+var file = [rss, heapUsed, heapTotal, external];
+ 
+
+ // =========================================================
+
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    
+    
+    data: {
+        labels: ['Resident set size (Rss)', 'HeapUsed', 'HeapTotal', 'External'],
+
+        datasets: [{
+            label: 'Momory used (MB)',
+                        
+            data: file,
+
+
+
+
+            backgroundColor: [                
+                'rgb(0, 128, 128, 0.4)',
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
+                'rgba(153, 102, 255, 0.4)',
+                'rgba(255, 159, 64, 0.4)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+
+
+
+<script>
+
+ 
+var a = <%= ab %>;
+var rss = (a.rss / (1024 * 1024)).toFixed(2);
+var heapUsed = (a.heapUsed / (1024 * 1024)).toFixed(2);
+var heapTotal = (a.heapTotal / (1024 * 1024)).toFixed(2);
+var external = (a.external / (1024 * 1024)).toFixed(2);
+
+
+var file = [rss, heapUsed, heapTotal, external];
+ 
+
+ // =========================================================
+
+var ctx = document.getElementById('myChart1').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'line',
+    
+    data: {
+        labels: ['Resident set size (Rss)', 'HeapUsed', 'HeapTotal', 'External'],
+
+        datasets: [{
+            label: 'Momory used (MB)',
+                        
+            data: file,
+
+
+
+            backgroundColor: [                
+                'rgb(0, 128, 128, 0.4)',
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
+                'rgba(153, 102, 255, 0.4)',
+                'rgba(255, 159, 64, 0.4)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
+
+
+
+
+
+
+<script>
+
+ 
+var a = <%= ab %>;
+var rss = (a.rss / (1024 * 1024)).toFixed(2);
+var heapUsed = (a.heapUsed / (1024 * 1024)).toFixed(2);
+var heapTotal = (a.heapTotal / (1024 * 1024)).toFixed(2);
+var external = (a.external / (1024 * 1024)).toFixed(2);
+
+var file = [rss, heapUsed, heapTotal, external];
+ 
+
+ // =========================================================
+
+var ctx = document.getElementById('myChart2').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'doughnut',
+    
+    data: {
+        labels: ['Resident set size (Rss)', 'HeapUsed', 'HeapTotal', 'External'],
+
+        datasets: [{
+            label: 'Momory used (MB)',
+                        
+            data: file,
+
+
+
+            backgroundColor: [                
+                'rgb(0, 128, 128, 0.4)',
+                'rgba(54, 162, 235, 0.4)',
+                'rgba(255, 206, 86, 0.4)',
+                'rgba(75, 192, 192, 0.4)',
+                'rgba(153, 102, 255, 0.4)',
+                'rgba(255, 159, 64, 0.4)'
+            ],
+            borderColor: [
+                'rgba(255, 99, 132, 2)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 2
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero: true
+                }
+            }]
+        }
+    }
+});
+</script>
