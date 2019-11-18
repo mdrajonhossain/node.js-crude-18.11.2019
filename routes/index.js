@@ -62,6 +62,42 @@ router.get('/form', function(req, res, next) {
 });
 
 
+// delete
+router.get('/delete/:id', function(req, res, next) {
+	const id = req.params.id;
+	const sql = "DELETE from student_form WHERE id="+id+"";
+	db.query(sql);
+	res.redirect('/form');	
+});
+
+
+// edit=======
+router.get('/edit/:id', function(req, res, next) {
+	var id = req.params.id;
+	db.query("SELECT * from student_form WHERE id="+id+"", function (err, result, fields){
+		
+		res.render('edit', {result : result});
+		console.log(result);
+	});
+});
+
+
+
+// update
+router.post('/update/:id', function(req, res, next) {
+
+	var id = req.params.id;	 
+	var sql = "UPDATE student_form SET name='"+req.body.name+"', fname='"+req.body.fname+"', mname='"+req.body.mname+"' WHERE id='"+id+"'";
+	db.query(sql);	 		
+	res.redirect('/form'); 
+	 
+});
+
+
+
+
+
+
 
 router.get('/next', function(req, res, next) {
   		
