@@ -9,80 +9,97 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <title>Student Form</title>
+    <style type="text/css">
+      .mar{
+        padding-left: 260px;        
+      }
+      @media print{
+         .noprint{
+             display:none;
+         }
+      }
+
+      #exampleModalScrollable{
+        background: red;
+
+      }
+    </style>
+    
   </head>
   <body>
-<a class=" btn-info btn btn-info" href="/" role="button">Home Page</a>
+    <br>
+<a class=" btn-info btn btn-info noprint" href="/" role="button">Home Page</a>
+
+
+<button type="button" class="btn btn-success noprint" data-toggle="modal" data-target="#exampleModalScrollable">Add Data</button>
+
+<button class="btn btn-info noprint" onclick="myFunction()">Print</button>
+
 <br>
-<center><h2 class="text-info"><b>Student Form</b></h2></center>
 <br>
 <div class="container">
 
-<form action="/studentinsert" method="POST">
+  <div class="row">
+          <div class="col-md-8">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">SL</th>
+                <th scope="col">Pen Price</th>
+                <th scope="col">Book Price</th>
+                <th scope="col">Mobile Price</th>
+                <th scope="col">Total</th>
+                <th scope="col"><span class="noprint">Action</span></th>
+                </tr>
+            </thead>
+            <tbody> 
+              <% var i = 1 ; %>
+              <% x.forEach(function(rs) { %>
+                <tr>
+                  <th scope="row"><%= i %></th>
+                  <td><%= rs.name %></td>
+                  <td><%= rs.fname %></td>
+                  <td><%= rs.mname%></td>      
+                  <td class="sum"><%= rs.name + rs.fname +rs.mname %></td>                        
+                  <td>
+                  <a class="btn btn-info noprint" href="/edit/<%= rs.id %>" role="button">Edit</a>
+                  <a class="btn btn-danger noprint" href="/delete/<%= rs.id %>" 
+                    onclick="return confirm('Are you sure delete data');"role="button">Delete</a> 
+                  </td>      
+                </tr>
+                
+              <% i++; %>
+              <% }); %>
+              <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td id="show"></td>
+                </tr>
+            </tbody>
+          </table>
+          </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Student Name</label>
-    <input type="text" name="name" class="form-control" id="exampleInputEmail1" required placeholder="student Name">   
-  </div>
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Father Name</label>
-    <input type="text" name="fname" class="form-control" id="exampleInputEmail1" required placeholder="Father Name">   
-  </div>
+    <div class="col-md-4">
+      
+    </div>
+    
 
 
-  <div class="form-group">
-    <label for="exampleInputEmail1">Mother Name</label>
-    <input type="text" name="mname" class="form-control" id="exampleInputEmail1" required placeholder="Mother Name">   
-  </div>
+</div>
  
-  <button type="submit" class="btn btn-primary">Submit</button>
-  <button type="reset" class="btn btn-danger">Reset</button>
 
+<br>
+<br>
 
-</form>
-
-
-<br><br>
-
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">SL</th>
-      <th scope="col">Name</th>
-      <th scope="col">Father Name</th>
-      <th scope="col">Mother Name</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  
-  <tbody> 
-    <% var i = 1 ; %>
-	<% x.forEach(function(rs) { %>
-    <tr>
-      <th scope="row"><%= i %></th>
-      <td><%= rs.name %></td>
-      <td><%= rs.fname %></td>
-      <td><%= rs.mname %></td>      
-      <td> 
-
-<a class="btn btn-info" href="/edit/<%= rs.id %>" role="button">Edit</a>
-<a class="btn btn-danger" href="/delete/<%= rs.id %>" role="button">Delete</a> 
-
-      </td>      
-    </tr>
-	 <% i++; %>
-	<% }); %>
-  </tbody>
-</table>
 
 </div>
 
-
  
-
-
-     
+  
+      
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -91,3 +108,75 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
+
+ 
+
+
+
+<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade mar" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalScrollableTitle"><center class="text-danger"><h4>Student Form</h4></center></h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true"><div class="text-info">X</div></span>
+        </button>
+      </div>
+      <div class="modal-body bac"><style> .bac {background:#407A52;}</style>
+
+
+     <form action="/studentinsert" method="POST">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Pen Price</label>
+            <input type="text" name="name" class="form-control" id="exampleInputEmail1" required placeholder="Pen Price">   
+          </div>
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Book Price</label>
+            <input type="text" name="fname" class="form-control" id="exampleInputEmail1" required placeholder="Book Price">   
+          </div>
+
+
+          <div class="form-group">
+            <label for="exampleInputEmail1">Mobile Price</label>
+            <input type="text" name="mname" class="form-control" id="exampleInputEmail1" required placeholder="Mobile Price">   
+          </div>
+         
+          <button type="submit" class="btn btn-info">Submit</button>
+          <button type="reset" class="btn btn-danger">Reset</button>
+      </form>
+
+
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<script type="text/javascript">
+   
+function myFunction() {
+  window.print();
+}
+ 
+
+
+      // total show          
+        $(document).ready(function() {
+            var total = 0;
+            $('.sum').each(function() {                
+                total += parseFloat($(this).text());
+            });
+            $('#show').text('Total : ' + total);             
+        });         
+     
+</script>
